@@ -69,8 +69,35 @@ function getDayName(date) {
  * Date('2024-02-13T00:00:00Z') => Date('2024-02-16T00:00:00Z')
  * Date('2024-02-16T00:00:00Z') => Date('2024-02-23T00:00:00Z')
  */
-function getNextFriday(/* date */) {
-  throw new Error('Not implemented');
+function getNextFriday(date) {
+  const currentDay = new Intl.DateTimeFormat('en-us', {
+    weekday: 'long',
+    timeZone: 'utc',
+  }).format(new Date(Date.parse(date)));
+  const result = new Date(date);
+  switch (currentDay) {
+    case 'Monday':
+      result.setDate(date.getDate() + 4);
+      break;
+    case 'Tuesday':
+      result.setDate(date.getDate() + 3);
+      break;
+    case 'Wednesday':
+      result.setDate(date.getDate() + 2);
+      break;
+    case 'Thursday':
+      result.setDate(date.getDate() + 1);
+      break;
+    case 'Friday':
+      result.setDate(date.getDate() + 7);
+      break;
+    case 'Saturday':
+      result.setDate(date.getDate() + 6);
+      break;
+    default:
+      result.setDate(date.getDate() + 5);
+  }
+  return new Date(result);
 }
 
 /**
